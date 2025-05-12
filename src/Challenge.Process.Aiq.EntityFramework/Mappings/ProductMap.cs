@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Challenge.Process.Aiq.EntityFramework.Mappings;
 
-public sealed class ProductMap : IEntityTypeConfiguration<Product>
+internal sealed class ProductMap : IEntityTypeConfiguration<Product>
 {
     public void Configure(EntityTypeBuilder<Product> builder)
     {

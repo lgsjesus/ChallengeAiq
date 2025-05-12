@@ -19,7 +19,7 @@ public class Repository<TEntity>(ChallengeProcessAiqDbContext context, IUnitOfWo
     public async Task<ReadOnlyCollection<TEntity>> GetAllAsync(Pagination pagination)
     {
         var pagedData = await DbSet.AsNoTracking()
-            .OrderBy(e => e.Id) 
+             .OrderBy(p => EF.Property<object>(p, pagination.OrderBy))
             .Skip((pagination.PageNumber - 1) * pagination.PageSize)
             .Take(pagination.PageSize)
             .ToListAsync();

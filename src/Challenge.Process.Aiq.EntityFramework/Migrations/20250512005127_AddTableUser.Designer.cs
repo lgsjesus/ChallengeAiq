@@ -2,6 +2,7 @@
 using Challenge.Process.Aiq.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Challenge.Process.Aiq.EntityFramework.Migrations
 {
     [DbContext(typeof(ChallengeProcessAiqDbContext))]
-    partial class ChallengeProcessAiqDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250512005127_AddTableUser")]
+    partial class AddTableUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -2,10 +2,10 @@
 
 public sealed record AuthorizationResponseDto
 {
-    public required string AccessToken { get; set; }
+    public required string Token { get; set; }
 
     public static AuthorizationResponseDto Create(in string accessToken) => new()
     {
-        AccessToken = accessToken
+        Token = accessToken
     };
 }

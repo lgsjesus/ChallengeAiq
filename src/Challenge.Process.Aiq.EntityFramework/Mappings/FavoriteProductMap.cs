@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Challenge.Process.Aiq.EntityFramework.Mappings;
 
-public sealed class FavoriteProductMap: IEntityTypeConfiguration<FavoriteProduct>
+internal sealed class FavoriteProductMap: IEntityTypeConfiguration<FavoriteProduct>
 {
     public void Configure(EntityTypeBuilder<FavoriteProduct> builder)
     {

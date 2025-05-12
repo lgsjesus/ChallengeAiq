@@ -13,5 +13,6 @@ public static class Bootstrapper
         serviceCollection.AddScoped<IProductRepository, ProductRepository>();
         serviceCollection.AddScoped<ICustomerRepository, CustomerRepository>();
         serviceCollection.AddScoped<IFavoriteProductRepository, FavoriteProductRepository>();
+        serviceCollection.AddScoped<IUserRepository, UserRepository>();
     }
 }
