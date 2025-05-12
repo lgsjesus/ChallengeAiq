@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Challenge.Process.Aiq.Domain", "src\Challenge.Process.Aiq.Domain\Challenge.Process.Aiq.Domain.csproj", "{6C7BB390-A472-486D-B480-2165B3041383}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Challenge.Process.Aiq.EntityFramework", "src\Challenge.Process.Aiq.EntityFramework\Challenge.Process.Aiq.EntityFramework.csproj", "{2A222AB9-1EBF-4119-A9B1-CFD63F705B05}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{45879183-88AD-4634-A4AC-D9368695C3F7}"
+	ProjectSection(SolutionItems) = preProject
+		compose.yaml = compose.yaml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Challenge.Process.Aiq.WebApi", "src\Challenge.Process.Aiq.WebApi\Challenge.Process.Aiq.WebApi.csproj", "{F333D2AE-60AB-4CC3-BD93-C9176FCAABCF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "database", "database", "{89940C81-A54E-4EAF-99DF-ECD3B8F04E70}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Challenge.Process.Aiq.Services", "src\Challenge.Process.Aiq.Services\Challenge.Process.Aiq.Services.csproj", "{8EAF816C-5A72-46C1-911C-0B185755557A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6C7BB390-A472-486D-B480-2165B3041383}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C7BB390-A472-486D-B480-2165B3041383}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C7BB390-A472-486D-B480-2165B3041383}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C7BB390-A472-486D-B480-2165B3041383}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A222AB9-1EBF-4119-A9B1-CFD63F705B05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A222AB9-1EBF-4119-A9B1-CFD63F705B05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A222AB9-1EBF-4119-A9B1-CFD63F705B05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A222AB9-1EBF-4119-A9B1-CFD63F705B05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F333D2AE-60AB-4CC3-BD93-C9176FCAABCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F333D2AE-60AB-4CC3-BD93-C9176FCAABCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F333D2AE-60AB-4CC3-BD93-C9176FCAABCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F333D2AE-60AB-4CC3-BD93-C9176FCAABCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EAF816C-5A72-46C1-911C-0B185755557A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EAF816C-5A72-46C1-911C-0B185755557A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EAF816C-5A72-46C1-911C-0B185755557A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EAF816C-5A72-46C1-911C-0B185755557A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

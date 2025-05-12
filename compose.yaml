@@ -1,0 +1,41 @@
+﻿services:  
+  challenge.process.aiq.webapi:
+    image: challenge.process.aiq.webapi
+    tty: true
+    ports:
+      - "8081:8080"
+    environment:
+     - ASPNETCORE_ENVIRONMENT=Staging
+    build:
+      context: .
+      dockerfile: src/Challenge.Process.Aiq.WebApi/Dockerfile
+    networks:
+      - dbnet
+    depends_on:
+      db:
+        condition: service_healthy
+    
+  db:
+    container_name: postgresql
+    image: postgres:17.4
+    restart: always      
+    shm_size: 128mb    
+    tty: true    
+    ports:
+      - "5432:5432"
+    environment:
+        POSTGRES_PASSWORD: adm12345
+        POSTGRES_USER: user
+        POSTGRES_DB: challenge
+    networks:
+      - dbnet
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U user -d challenge" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+networks:
+  dbnet:
+    driver: bridge
