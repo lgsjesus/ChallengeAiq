@@ -16,6 +16,8 @@ public abstract class ApiBaseController : ControllerBase
                     return Ok(ApiResponse<T>.CreateSuccess(retorno));
                 case StatusCodes.Status404NotFound:
                     return NotFound(ApiEmptyResponse.CreateSuccess());
+                case StatusCodes.Status401Unauthorized:
+                    return Unauthorized(ApiEmptyResponse.CreateError(null));
                 default:
                     return Ok(ApiResponse<T>.CreateSuccess(retorno));
                 
@@ -26,15 +28,18 @@ public abstract class ApiBaseController : ControllerBase
             return BadRequest(ApiResponse<T>.CreateError(ex.Message));
         }
     }
-    protected  async Task<IActionResult> HandleEmptyResponse(int statusCodes, Func<Task> action) 
+    protected  async Task<IActionResult> HandleEmptyResponse(int statusCodes, Func<Task>? action = null ) 
     {
         try
         {
-            await action.Invoke();
+            if(action != null)
+                await action.Invoke();
             switch (statusCodes)
             {
                 case StatusCodes.Status204NoContent:
                     return NoContent();
+                case StatusCodes.Status401Unauthorized:
+                    return Unauthorized(ApiEmptyResponse.CreateError(null));
                 default:
                     return Ok(ApiEmptyResponse.CreateSuccess());
             }

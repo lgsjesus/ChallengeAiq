@@ -2,6 +2,7 @@
 using Challenge.Process.Aiq.Services.CustomerServices;
 using Challenge.Process.Aiq.Services.FavoriteProductServices;
 using Challenge.Process.Aiq.Services.ProductServices;
+using Challenge.Process.Aiq.Services.TokenServices;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,6 +14,7 @@ public static class Bootstrapper
     {
         services.AddScoped<ICustomerService, CustomerService>();
         services.AddScoped<IFavoriteProductService, FavoriteProductService>();
+        services.AddScoped<ITokenService, TokenService>();
         services.AddHttpClient<IProductService, ProductService>(
             c=> c.BaseAddress = new(configuration["ServicesAgents:ProductService"] ?? 
                                     throw new UserException("Without configuration to ProductService in appSettings")));

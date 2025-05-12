@@ -8,7 +8,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:4200") // 👈 your frontend URL
+        policy.WithOrigins("http://localhost:4200")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials(); // optional, only if you're using cookies or auth headers
@@ -27,6 +27,8 @@ app.UseSwaggerUI();
 
 app.MapControllers();
 app.UseRouting();
+app.UseAuthentication();
+app.UseAuthorization();
 app.UseMiddleware<ExceptionMiddleware>();
 
 app.Run();

@@ -1,6 +1,7 @@
 ﻿using System.Net.Mime;
 using Challenge.Process.Aiq.Services.FavoriteProductServices;
 using Challenge.Process.Aiq.WebApi.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -8,6 +9,7 @@ namespace Challenge.Process.Aiq.WebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class FavoriteProductController(IFavoriteProductService favoriteProductService): ApiBaseController
 {
     [HttpGet("Get/{customerId}")]
@@ -15,6 +17,7 @@ public class FavoriteProductController(IFavoriteProductService favoriteProductSe
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [SwaggerResponse(200, "Found Favorite Products from Customer.", typeof(ApiResponse<FavoriteProductsDto>))]
     [SwaggerResponse(404, "Not Found Favorite Products from Customer.", typeof(ApiEmptyResponse))]
+    [SwaggerResponse(401, "Not authorized.")]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces(MediaTypeNames.Application.Json)]
     [SwaggerOperation(Summary = "Get all favorites products for customer.")]
@@ -26,6 +29,7 @@ public class FavoriteProductController(IFavoriteProductService favoriteProductSe
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [SwaggerResponse(201, "Create Favorite Products to Customer.", typeof(ApiEmptyResponse))]
     [SwaggerResponse(404, "Not Found Favorite Products from Customer.", typeof(ApiEmptyResponse))]
+    [SwaggerResponse(401, "Not authorized.")]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces(MediaTypeNames.Application.Json)]
     [SwaggerOperation(Summary = "Create a favorite product for customer.")]

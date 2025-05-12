@@ -11,7 +11,7 @@ public sealed class ApiEmptyResponse
         Success = true,
         Error = null,
     };
-    public static ApiEmptyResponse CreateError(in string error) => new()
+    public static ApiEmptyResponse CreateError(in string? error) => new()
     {
         Success = false,
         Error = error,

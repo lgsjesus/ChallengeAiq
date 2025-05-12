@@ -2,6 +2,7 @@
 using Challenge.Process.Aiq.Domain.Abstractions;
 using Challenge.Process.Aiq.Services.CustomerServices;
 using Challenge.Process.Aiq.WebApi.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -9,6 +10,7 @@ namespace Challenge.Process.Aiq.WebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class CustomerController(ICustomerService customerService) : ApiBaseController
 {
     [HttpGet("Get/{id}")]
@@ -18,6 +20,7 @@ public class CustomerController(ICustomerService customerService) : ApiBaseContr
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [SwaggerResponse(200, "Found Customer.", typeof(ApiResponse<CustomerDto>))]
     [SwaggerResponse(404, "Not found Customer.", typeof(ApiEmptyResponse))]
+    [SwaggerResponse(401, "Not authorized.")]
     [SwaggerOperation(Summary = "Get customer by id.")]
     public async Task<IActionResult> GetCustomerById(long id)
         => HandleResponse(StatusCodes.Status200OK,await customerService.GetByIdAsync(id));
@@ -27,6 +30,7 @@ public class CustomerController(ICustomerService customerService) : ApiBaseContr
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [SwaggerResponse(201, "Created Customer.", typeof(ApiResponse<CustomerDto>))]
     [SwaggerResponse(400, "Erro create Customer.", typeof(ApiEmptyResponse))]
+    [SwaggerResponse(401, "Not authorized.")]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces(MediaTypeNames.Application.Json)]
     [SwaggerOperation(Summary = "Create new customer.")]
@@ -40,6 +44,7 @@ public class CustomerController(ICustomerService customerService) : ApiBaseContr
     [Produces(MediaTypeNames.Application.Json)]
     [SwaggerResponse(200, "List of found Customer.", typeof(ApiResponse<IEnumerable<CustomerDto>>))]
     [SwaggerResponse(404, "Not found Customer.", typeof(ApiEmptyResponse))]
+    [SwaggerResponse(401, "Not authorized.")]
     [SwaggerOperation(Summary = "Get all customers.")]
     public async Task<IActionResult> GetAllCustomers([FromBody] Pagination dto)
         => HandleResponse(StatusCodes.Status200OK,await customerService.GetAllAsync(dto));
@@ -49,6 +54,7 @@ public class CustomerController(ICustomerService customerService) : ApiBaseContr
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [SwaggerResponse(200, "Updated Customer.", typeof(ApiResponse<CustomerDto>))]
     [SwaggerResponse(404, "Not found Customer to Update.", typeof(ApiEmptyResponse))]
+    [SwaggerResponse(401, "Not authorized.")]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces(MediaTypeNames.Application.Json)]
     [SwaggerOperation(Summary = "Update customer.")]
@@ -62,6 +68,7 @@ public class CustomerController(ICustomerService customerService) : ApiBaseContr
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [SwaggerResponse(204, "Deleted Customer.")]
     [SwaggerResponse(404, "Not found Customer to delete.", typeof(ApiEmptyResponse))]
+    [SwaggerResponse(401, "Not authorized.")]
     [SwaggerOperation(Summary = "Delete customer and your favorites products.")]
     public async Task<IActionResult> DeleteCustomer(long id)
     {

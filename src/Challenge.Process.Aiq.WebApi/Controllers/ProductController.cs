@@ -1,6 +1,7 @@
 ﻿using System.Net.Mime;
 using Challenge.Process.Aiq.Services.ProductServices;
 using Challenge.Process.Aiq.WebApi.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -8,6 +9,7 @@ namespace Challenge.Process.Aiq.WebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class ProductController(IProductService productService): ApiBaseController
 {
     [HttpGet("Get/{id}")]
@@ -15,6 +17,7 @@ public class ProductController(IProductService productService): ApiBaseControlle
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [SwaggerResponse(200, "Get Product.", typeof(ApiResponse<ProductDto>))]
     [SwaggerResponse(404, "Not Found Product.", typeof(ApiEmptyResponse))]
+    [SwaggerResponse(401, "Not authorized.")]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces(MediaTypeNames.Application.Json)]
     [SwaggerOperation(Summary = "Get product by id.")]
@@ -26,6 +29,7 @@ public class ProductController(IProductService productService): ApiBaseControlle
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [SwaggerResponse(200, "Get list of Products.", typeof(ApiResponse<ProductDto[]>))]
     [SwaggerResponse(404, "Not Found Products.", typeof(ApiEmptyResponse))]
+    [SwaggerResponse(401, "Not authorized.")]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces(MediaTypeNames.Application.Json)]
     [SwaggerOperation(Summary = "Get all products.")]
