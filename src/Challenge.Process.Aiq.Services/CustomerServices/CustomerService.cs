@@ -18,6 +18,8 @@ public sealed class CustomerService(ICustomerRepository repository) : ICustomerS
     {
         if ((await repository.GetCustomerByEmailAsync(customerDto.Email)).HasValue)
             throw new UserException("Email already exists");
+        if(string.IsNullOrEmpty(customerDto.Name.Trim()))
+            throw new UserException("Name cannot be empty.");   
         return await repository.CreateCustomerAsync(customerDto);
     }
 
@@ -31,6 +33,9 @@ public sealed class CustomerService(ICustomerRepository repository) : ICustomerS
             {
                 if (await ValidationEmail(customer, customerDto.Email))
                 {
+                    if(string.IsNullOrEmpty(customerDto.Name.Trim()))
+                        throw new UserException("Name cannot be empty.");  
+                    
                     customer.Update(customerDto.Name,customer.Email);
                     return await repository.UpdateCustomerAsync(customer);
                 }

@@ -7,6 +7,8 @@ public sealed record CustomerDto
 {
     public long Id { get; init; }
     [MaxLength(120)]
+    [MinLength(5)]
+    [Required]
     public required string Name { get; init; }
     [EmailAddress]
     [MaxLength(200)]

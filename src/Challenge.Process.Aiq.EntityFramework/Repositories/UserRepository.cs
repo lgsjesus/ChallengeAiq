@@ -8,10 +8,10 @@ namespace Challenge.Process.Aiq.EntityFramework.Repositories;
 public sealed class UserRepository(ChallengeProcessAiqDbContext context, IUnitOfWork unitOfWork) 
     : Repository<User>(context, unitOfWork), IUserRepository
 {
-    public async Task<User?> GetUserAsync(string email, string password)
+    public async Task<User?> GetUserByEmailAsync(string email)
     {
         return await DbSet.AsNoTracking().FirstOrDefaultAsync(u => 
-            string.Equals(u.Email , email) && string.Equals(u.Password, password));
+            string.Equals(u.Email.ToLower() , email.ToLower()));
     }
     public async Task CreateUserAsync(string email, string password)
     {

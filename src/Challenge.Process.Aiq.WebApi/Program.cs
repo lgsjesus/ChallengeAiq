@@ -33,7 +33,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseMiddleware<ExceptionMiddleware>();
 
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsStaging())
 {
     using (var scope = app.Services.CreateScope())
     {

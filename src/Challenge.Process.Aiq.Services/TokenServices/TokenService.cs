@@ -17,14 +17,16 @@ public class TokenService(IConfiguration config,IUserRepository userRepository) 
     public async Task<Option<AuthorizationResponseDto>> LoginAsync(AuthorizationRequestDto dto)
     {
         var hasher = new PasswordHasher<User>();
-        var userHarsher = User.Create(dto.EmailUser, dto.Password);
-        var passwordHarsher = hasher.HashPassword(userHarsher, dto.Password);
-        
-        var user = await userRepository.GetUserAsync(dto.EmailUser, passwordHarsher);
+        var user = await userRepository.GetUserByEmailAsync(dto.EmailUser);
         if(user == null)
             return Option.None<AuthorizationResponseDto>();
         
-        return Option.Some(AuthorizationResponseDto.Create(GenerateToken(user.Email)));
+        var result = hasher.VerifyHashedPassword(user, user.Password, dto.Password);
+       if (result == PasswordVerificationResult.Success)
+        {
+            return Option.Some(AuthorizationResponseDto.Create(GenerateToken(user.Email)));
+        }
+        return Option.None<AuthorizationResponseDto>();
             
     }
 
@@ -37,7 +39,8 @@ public class TokenService(IConfiguration config,IUserRepository userRepository) 
         
         var hasher = new PasswordHasher<User>();
         var userHarsher = User.Create(dto.EmailUser, dto.Password);
-        await userRepository.CreateUserAsync(dto.EmailUser, hasher.HashPassword(userHarsher, dto.Password));
+        var passwordHarsher = hasher.HashPassword(userHarsher, dto.Password);
+        await userRepository.CreateUserAsync(dto.EmailUser, passwordHarsher);
 
         return AuthorizationResponseDto.Create(GenerateToken(dto.EmailUser));
     }

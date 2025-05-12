@@ -13,7 +13,7 @@ public class Repository<TEntity>(ChallengeProcessAiqDbContext context, IUnitOfWo
     public async Task<bool> ExistsByIdAsync(long id) => await DbSet.AsNoTracking().AnyAsync(e => e.Id == id);
     public async Task<Option<TEntity>> GetByIdAsync(long id)
     {
-        var item = await DbSet.AsNoTracking().FirstOrDefaultAsync(i=> i.Id == id);
+        var item = await DbSet.FirstOrDefaultAsync(i=> i.Id == id);
         return item == null ? Option.None<TEntity>() : Option.Some(item);
     }
     public async Task<ReadOnlyCollection<TEntity>> GetAllAsync(Pagination pagination)

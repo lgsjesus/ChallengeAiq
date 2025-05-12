@@ -38,4 +38,18 @@ public class FavoriteProductController(IFavoriteProductService favoriteProductSe
     {
        return await HandleEmptyResponse(StatusCodes.Status200OK,async ()=>  await favoriteProductService.CreateFavoriteProductToCustomerAsync(favoriteProductsDto));
     }
+    [HttpDelete("Delete")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [SwaggerResponse(204, "Deleted  Favorite Products from Customer.")]
+    [SwaggerResponse(404, "Not found Favorite Products to delete.", typeof(ApiEmptyResponse))]
+    [SwaggerResponse(401, "Not authorized.")]
+    [SwaggerOperation(Summary = "Delete Favorite Products from Customer")]
+    public async Task<IActionResult> DeleteCustomer([FromBody] RemoveFavoriteProductToCustomerDto dto)
+    {
+        return await HandleEmptyResponse( StatusCodes.Status204NoContent,async ()=> 
+            await favoriteProductService.RemoveFavoriteProductFromCustomer(dto));
+    }
 }
