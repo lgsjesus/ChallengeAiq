@@ -28,7 +28,7 @@ public class TokenController(ITokenService tokenService) : ApiBaseController
         else
            return await HandleEmptyResponse(StatusCodes.Status401Unauthorized);
     }
-    [HttpPost("Create")]
+    [HttpPost("CreateUser")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [SwaggerResponse(200, "Get Authorization Token Access.", typeof(ApiResponse<AuthorizationResponseDto>))]
@@ -38,11 +38,7 @@ public class TokenController(ITokenService tokenService) : ApiBaseController
     [SwaggerOperation(Summary = "Create user and return token to access Api.")]
     public async Task<IActionResult> CreateUser(AuthorizationRequestDto dto)
     {
-        var result = await tokenService.CreateNewUserAsync(dto);
-        if (result.HasValue)
-            return HandleResponse(StatusCodes.Status200OK, result.ValueOrDefault());
-        else
-            return await HandleEmptyResponse(StatusCodes.Status400BadRequest);
+        return HandleResponse(StatusCodes.Status200OK, await tokenService.CreateNewUserAsync(dto));
     }
 
 }

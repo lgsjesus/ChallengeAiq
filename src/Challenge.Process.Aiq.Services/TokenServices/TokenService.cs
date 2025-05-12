@@ -1,13 +1,13 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Challenge.Process.Aiq.Domain.Abstractions;
 using Challenge.Process.Aiq.Domain.Entities;
 using Challenge.Process.Aiq.Domain.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Optional;
-using Optional.Unsafe;
 
 namespace Challenge.Process.Aiq.Services.TokenServices;
 
@@ -28,16 +28,18 @@ public class TokenService(IConfiguration config,IUserRepository userRepository) 
             
     }
 
-    public async Task<Option<AuthorizationResponseDto>> CreateNewUserAsync(AuthorizationRequestDto dto)
+    public async Task<AuthorizationResponseDto> CreateNewUserAsync(AuthorizationRequestDto dto)
     {
-        if( await userRepository.ExistsByEmailAsync(dto.EmailUser))
-            return Option.None<AuthorizationResponseDto>();
+        if (await userRepository.ExistsByEmailAsync(dto.EmailUser))
+        {
+            throw new UserException("Already exists user with this email");
+        }
         
         var hasher = new PasswordHasher<User>();
         var userHarsher = User.Create(dto.EmailUser, dto.Password);
         await userRepository.CreateUserAsync(dto.EmailUser, hasher.HashPassword(userHarsher, dto.Password));
 
-        return Option.Some(AuthorizationResponseDto.Create(GenerateToken(dto.EmailUser)));
+        return AuthorizationResponseDto.Create(GenerateToken(dto.EmailUser));
     }
 
     private  string GenerateToken(in string emailUser)

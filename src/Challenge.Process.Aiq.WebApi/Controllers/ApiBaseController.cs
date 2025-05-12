@@ -38,6 +38,8 @@ public abstract class ApiBaseController : ControllerBase
             {
                 case StatusCodes.Status204NoContent:
                     return NoContent();
+                case StatusCodes.Status400BadRequest:
+                    return BadRequest();
                 case StatusCodes.Status401Unauthorized:
                     return Unauthorized(ApiEmptyResponse.CreateError(null));
                 default:

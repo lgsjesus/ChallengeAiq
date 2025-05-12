@@ -1,5 +1,7 @@
-﻿using Challenge.Process.Aiq.WebApi.Abstractions;
+﻿using Challenge.Process.Aiq.EntityFramework;
+using Challenge.Process.Aiq.WebApi.Abstractions;
 using Challenge.Process.Aiq.WebApi.Configuration;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,4 +33,13 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseMiddleware<ExceptionMiddleware>();
 
-app.Run();
+if (app.Environment.IsDevelopment())
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<ChallengeProcessAiqDbContext>();
+        await dbContext.Database.MigrateAsync();
+    }
+}
+
+await app.RunAsync();
